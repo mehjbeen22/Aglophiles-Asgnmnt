@@ -7,9 +7,9 @@ const MoviesCatalog = () => {
   const [movieData, setMovieData] = useState(movieJson);
   const [pagination, setPagination] = useState(0);
   const [searchFilteredData, setSearchFilteredData] = useState(movieJson);
-  const [genre, setGenre] = useState('All');
-  const [releaseYear, setReleaseYear] = useState('All');
-  const [imdbRating, setImdbRating] = useState('All');
+  const [genre, setGenre] = useState('All Geners');
+  const [releaseYear, setReleaseYear] = useState('All release Year');
+  const [imdbRating, setImdbRating] = useState('All imdbRating');
 
   const itemsPerPage = 8;
 
@@ -17,19 +17,19 @@ const MoviesCatalog = () => {
   const getAllGenre = Array.from(
     new Set(movieData.flatMap((value) => value.genres)),
   );
-  const allGenresValue = ['All', ...getAllGenre];
+  const allGenresValue = ['All Geners', ...getAllGenre];
 
   const getAllReleaseYear = Array.from(
     new Set(movieData.map((value) => value.release_year)),
   );
 
-  const allReleaseYearValue = ['All', ...getAllReleaseYear];
+  const allReleaseYearValue = ['All release Year', ...getAllReleaseYear];
 
   const getAllImdbRating = Array.from(
     new Set(movieData.map((value) => value.imdb_rating)),
   );
 
-  const allImdbValue = ['All', ...getAllImdbRating];
+  const allImdbValue = ['All imdbRating', ...getAllImdbRating];
   // ---------------------------------
 
   const nextPage = () => {
@@ -56,19 +56,19 @@ const MoviesCatalog = () => {
   useEffect(() => {
     let filteredData = movieData;
 
-    if (genre !== 'All') {
+    if (genre !== 'All Geners') {
       filteredData = filteredData.filter((movie) =>
         movie.genres.includes(genre),
       );
     }
 
-    if (releaseYear !== 'All') {
+    if (releaseYear !== 'All release Year') {
       filteredData = filteredData.filter(
         (movie) => movie.release_year === parseInt(releaseYear, 10),
       );
     }
 
-    if (imdbRating !== 'All') {
+    if (imdbRating !== 'All imdbRating') {
       filteredData = filteredData.filter(
         (movie) => movie.imdb_rating === parseFloat(imdbRating),
       );
@@ -96,8 +96,6 @@ const MoviesCatalog = () => {
 
   return (
     <main>
-   
-
       {/* -------------- Filteration Navbar ---------------- */}
       <div className="bg-white flex flex-col justify-center items-center gap-10 border-b shadow-2xl p-2 md:flex-row md:justify-center md:items-center">
         {/* BY SEARCH INPUT */}
@@ -112,8 +110,7 @@ const MoviesCatalog = () => {
         </div>
 
         {/* BY GENRE  */}
-        <section className="flex flex-col text-center border border-black rounded  md:gap-4">
-          <label htmlFor="filterByGenre"> Filter By Genre</label>
+        <section className="flex  text-center border p-2 border-black rounded  md:gap-4">
           <select
             name="genre"
             id="genre"
@@ -129,11 +126,7 @@ const MoviesCatalog = () => {
         </section>
 
         {/* BY RELEASE YEAR */}
-        <section className="flex flex-col text-center border border-black rounded md:gap-4">
-          <label htmlFor="filterByReleaseYear" className="">
-            {' '}
-            Filter By Release Year
-          </label>
+        <section className="flex flex-col text-center border p-2 border-black rounded md:gap-4">
           <select
             name="RYear"
             id="RYear"
@@ -149,11 +142,7 @@ const MoviesCatalog = () => {
         </section>
 
         {/* BY IMDB RATING */}
-        <section className="flex flex-col text-center border border-black rounded  md:gap-4">
-          <label htmlFor="filterByImdbRating" className="">
-            {' '}
-            Filter By Imdb Rating
-          </label>
+        <section className="flex flex-col text-center border p-2 border-black rounded  md:gap-4">
           <select
             name="imdbRating"
             id="imdbRating"
@@ -171,7 +160,7 @@ const MoviesCatalog = () => {
 
       {/* ---------------------------------------- */}
 
-      <div className="flex justify-center items-center flex-col bg-blue-100">
+      <div className="flex justify-center items-center flex-col bg-black">
         <section className="bg-white  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 shadow-lg w-[95%] rounded m-4">
           {searchFilteredData.length === 0 ? (
             <p>Data Not Found</p>
@@ -212,8 +201,7 @@ const MoviesCatalog = () => {
                       <a
                         target="_blank"
                         href={movie_url}
-                        className="bg-blue-
-700 p-1 text-white rounded"
+                        className="bg-black text-white px-2 py-1 rounded"
                       >
                         Watch Here
                       </a>
@@ -228,14 +216,14 @@ const MoviesCatalog = () => {
           <button
             onClick={previousPage}
             disabled={pagination === 0}
-            className="bg-black text-white p-2 m-2"
+            className=" bg-white p-2 m-2"
           >
             PREV
           </button>
           <button
             onClick={nextPage}
             disabled={pagination + itemsPerPage >= searchFilteredData.length}
-            className="bg-black text-white p-2 m-2"
+            className="bg-white p-2 m-2"
           >
             NEXT
           </button>
