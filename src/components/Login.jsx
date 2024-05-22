@@ -15,7 +15,7 @@ const Login = () => {
         action=""
         className="bg-white flex flex-col gap-3 w-[35%] p-4  shadow-2xl"
       >
-        <h1 className="text-blue-600 font-bold  text-3xl text-center">LOGIN</h1>
+        <h1 className="text-black font-bold  text-3xl text-center">LOGIN</h1>
         <label htmlFor="email">Email </label>
         <input
           type="email"
@@ -39,7 +39,7 @@ const Login = () => {
           )}
         </div>
 
-        <button className="bg-blue-600 text-white  p-2  rounded text-lg">
+        <button className="bg-black text-white  p-2  rounded text-lg">
           Login
         </button>
 

@@ -97,7 +97,7 @@ const MoviesCatalog = () => {
   return (
     <main>
       {/* -------------- Filteration Navbar ---------------- */}
-      <div className="bg-white flex flex-col justify-center items-center gap-10 border-b shadow-2xl p-2 md:flex-row md:justify-center md:items-center">
+      <div className="bg-gray-200  flex flex-col justify-center items-center gap-10 border-b shadow-2xl p-3 md:flex-row md:justify-center md:items-center">
         {/* BY SEARCH INPUT */}
 
         <div className="w-[40%] flex justify-between gap-6">
@@ -161,7 +161,7 @@ const MoviesCatalog = () => {
       {/* ---------------------------------------- */}
 
       <div className="flex justify-center items-center flex-col bg-black">
-        <section className="bg-white  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 shadow-lg w-[95%] rounded m-4">
+        <section className="bg-gray-200  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 shadow-lg w-[95%] rounded m-4">
           {searchFilteredData.length === 0 ? (
             <p>Data Not Found</p>
           ) : (
