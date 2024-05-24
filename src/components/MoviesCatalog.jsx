@@ -7,9 +7,9 @@ const MoviesCatalog = () => {
   const [movieData, setMovieData] = useState(movieJson);
   const [pagination, setPagination] = useState(0);
   const [searchFilteredData, setSearchFilteredData] = useState(movieJson);
-  const [genre, setGenre] = useState('All Geners');
-  const [releaseYear, setReleaseYear] = useState('All release Year');
-  const [imdbRating, setImdbRating] = useState('All imdbRating');
+  const [genre, setGenre] = useState('All Genres');
+  const [releaseYear, setReleaseYear] = useState('All Release Years');
+  const [imdbRating, setImdbRating] = useState('All IMDb Ratings');
   const [movieDuration, setMovieDuration] = useState('Duration');
 
   const itemsPerPage = 8;
@@ -18,18 +18,17 @@ const MoviesCatalog = () => {
   const getAllGenre = Array.from(
     new Set(movieData.flatMap((value) => value.genres)),
   );
-  const allGenresValue = ['All Geners', ...getAllGenre];
+  const allGenresValue = ['All Genres', ...getAllGenre];
 
   const getAllReleaseYear = Array.from(
     new Set(movieData.map((value) => value.release_year)),
   );
-
-  const allReleaseYearValue = ['All release Year', ...getAllReleaseYear];
+  const allReleaseYearValue = ['All Release Years', ...getAllReleaseYear];
 
   const getAllImdbRating = Array.from(
     new Set(movieData.map((value) => value.imdb_rating)),
   );
-  const allImdbValue = ['All imdbRating', ...getAllImdbRating];
+  const allImdbValue = ['All IMDb Ratings', ...getAllImdbRating];
 
   const getAllMovieDuration = Array.from(
     new Set(
@@ -38,7 +37,6 @@ const MoviesCatalog = () => {
         .filter((value) => value >= 90 && value <= 120),
     ),
   );
-
   const allMovieDurationValue = ['Duration', ...getAllMovieDuration];
   // ---------------------------------
 
@@ -71,19 +69,19 @@ const MoviesCatalog = () => {
   useEffect(() => {
     let filteredData = movieData;
 
-    if (genre !== 'All Geners') {
+    if (genre !== 'All Genres') {
       filteredData = filteredData.filter((movie) =>
         movie.genres.includes(genre),
       );
     }
 
-    if (releaseYear !== 'All release Year') {
+    if (releaseYear !== 'All Release Years') {
       filteredData = filteredData.filter(
         (movie) => movie.release_year === parseInt(releaseYear, 10),
       );
     }
 
-    if (imdbRating !== 'All imdbRating') {
+    if (imdbRating !== 'All IMDb Ratings') {
       filteredData = filteredData.filter(
         (movie) => movie.imdb_rating === parseFloat(imdbRating),
       );
@@ -95,7 +93,6 @@ const MoviesCatalog = () => {
       );
     }
 
-    // ------------------------------
     setSearchFilteredData(filteredData);
     setPagination(0);
   }, [genre, releaseYear, imdbRating, movieData, movieDuration]);
@@ -238,7 +235,7 @@ const MoviesCatalog = () => {
                       </p>
 
                       <p className="mb-2">
-                        <span className="font-bold"> Movie Duration :</span>{' '}
+                        <span className="font-bold">Movie Duration :</span>{' '}
                         {length_in_min}mins
                       </p>
 
@@ -278,4 +275,3 @@ const MoviesCatalog = () => {
 };
 
 export default MoviesCatalog;
-``;
