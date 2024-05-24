@@ -10,6 +10,7 @@ const MoviesCatalog = () => {
   const [genre, setGenre] = useState('All Geners');
   const [releaseYear, setReleaseYear] = useState('All release Year');
   const [imdbRating, setImdbRating] = useState('All imdbRating');
+  const [movieDuration, setMovieDuration] = useState('Duration');
 
   const itemsPerPage = 8;
 
@@ -28,8 +29,17 @@ const MoviesCatalog = () => {
   const getAllImdbRating = Array.from(
     new Set(movieData.map((value) => value.imdb_rating)),
   );
-
   const allImdbValue = ['All imdbRating', ...getAllImdbRating];
+
+  const getAllMovieDuration = Array.from(
+    new Set(
+      movieData
+        .map((value) => value.length_in_min)
+        .filter((value) => value >= 90 && value <= 120),
+    ),
+  );
+
+  const allMovieDurationValue = ['Duration', ...getAllMovieDuration];
   // ---------------------------------
 
   const nextPage = () => {
@@ -53,6 +63,11 @@ const MoviesCatalog = () => {
     setPagination(0);
   };
 
+  const getPaginatedData = () => {
+    return searchFilteredData.slice(pagination, pagination + itemsPerPage);
+  };
+
+  // For handle data when state updates
   useEffect(() => {
     let filteredData = movieData;
 
@@ -74,9 +89,16 @@ const MoviesCatalog = () => {
       );
     }
 
+    if (movieDuration !== 'Duration') {
+      filteredData = filteredData.filter(
+        (movie) => movie.length_in_min === parseInt(movieDuration, 10),
+      );
+    }
+
+    // ------------------------------
     setSearchFilteredData(filteredData);
     setPagination(0);
-  }, [genre, releaseYear, imdbRating, movieData]);
+  }, [genre, releaseYear, imdbRating, movieData, movieDuration]);
 
   const genreFilterHandler = (event) => {
     setGenre(event.target.value);
@@ -90,16 +112,15 @@ const MoviesCatalog = () => {
     setImdbRating(event.target.value);
   };
 
-  const getPaginatedData = () => {
-    return searchFilteredData.slice(pagination, pagination + itemsPerPage);
+  const movieDurationHandler = (event) => {
+    setMovieDuration(event.target.value);
   };
 
   return (
     <main>
       {/* -------------- Filteration Navbar ---------------- */}
-      <div className="bg-gray-200  flex flex-col justify-center items-center gap-10 border-b shadow-2xl p-3 md:flex-row md:justify-center md:items-center">
+      <div className="bg-gray-200 flex flex-col justify-center items-center gap-10 border-b shadow-2xl p-3 md:flex-row md:justify-center md:items-center">
         {/* BY SEARCH INPUT */}
-
         <div className="w-[40%] flex justify-between gap-6">
           <input
             onChange={searchFilterHandler}
@@ -110,7 +131,7 @@ const MoviesCatalog = () => {
         </div>
 
         {/* BY GENRE  */}
-        <section className="flex  text-center border p-2 border-black rounded  md:gap-4">
+        <section className="flex text-center border p-2 border-black rounded md:gap-4">
           <select
             name="genre"
             id="genre"
@@ -142,7 +163,7 @@ const MoviesCatalog = () => {
         </section>
 
         {/* BY IMDB RATING */}
-        <section className="flex flex-col text-center border p-2 border-black rounded  md:gap-4">
+        <section className="flex flex-col text-center border p-2 border-black rounded md:gap-4">
           <select
             name="imdbRating"
             id="imdbRating"
@@ -156,12 +177,28 @@ const MoviesCatalog = () => {
             ))}
           </select>
         </section>
+
+        {/* BY MOVIE DURATION */}
+        <section className="flex flex-col text-center border p-2 border-black rounded md:gap-4">
+          <select
+            name="movieDuration"
+            id="movieDuration"
+            onChange={movieDurationHandler}
+            className="text-center border border-blue-800 outline-none"
+          >
+            {allMovieDurationValue.map((movieDuration, index) => (
+              <option key={index} value={movieDuration}>
+                {movieDuration}
+              </option>
+            ))}
+          </select>
+        </section>
       </div>
 
       {/* ---------------------------------------- */}
 
       <div className="flex justify-center items-center flex-col bg-black">
-        <section className="bg-gray-200  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 shadow-lg w-[95%] rounded m-4">
+        <section className="bg-gray-200 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 shadow-lg w-[95%] rounded m-4">
           {searchFilteredData.length === 0 ? (
             <p>Data Not Found</p>
           ) : (
@@ -175,6 +212,7 @@ const MoviesCatalog = () => {
                     imdb_rating,
                     poster,
                     release_year,
+                    length_in_min,
                   },
                   index,
                 ) => (
@@ -198,6 +236,12 @@ const MoviesCatalog = () => {
                         <span className="font-bold">Release Year :</span>{' '}
                         {release_year}
                       </p>
+
+                      <p className="mb-2">
+                        <span className="font-bold"> Movie Duration :</span>{' '}
+                        {length_in_min}mins
+                      </p>
+
                       <a
                         target="_blank"
                         href={movie_url}
@@ -234,3 +278,4 @@ const MoviesCatalog = () => {
 };
 
 export default MoviesCatalog;
+``;
