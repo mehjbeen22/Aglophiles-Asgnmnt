@@ -1,7 +1,4 @@
-
 Movie Catalog for Agilophiles Technologies
-This repository contains the source code for a movie catalog assignment completed for Agilophiles Technologies. The project uses a variety of modern web technologies to provide a seamless and interactive user experience.
-
 Technologies Used
 Frontend
 React.js: For building the user interface.
