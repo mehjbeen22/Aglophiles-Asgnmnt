@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { movieJson } from '../assets/movies';
 
@@ -16,7 +15,7 @@ const MoviesCatalog = () => {
 
   // SEARCH FILTERS -----------------
   const getAllGenre = Array.from(
-    new Set(movieData.flatMap((value) => value.genres)),
+    new Set(movieData.map((value) => value.genres)),
   );
   const allGenresValue = ['All Genres', ...getAllGenre];
 
