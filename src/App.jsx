@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,6 +12,8 @@ import Navbar from './components/Navbar';
 import { ToastContainer } from 'react-toastify';
 
 const App = () => {
+  const loginTrue = localStorage.getItem('login');
+  const [loginRedirect, setLoginRedirect] = useState(loginTrue);
   return (
     <>
       <ToastContainer
@@ -29,9 +31,12 @@ const App = () => {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Signup />} />
+          {loginRedirect ? (
+            <Route path="/" element={<MoviesCatalog />} />
+          ) : (
+            <Route path="/" element={<Signup />} />
+          )}
           <Route path="/login" element={<Login />} />
-          <Route path="/movies" element={<MoviesCatalog />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>

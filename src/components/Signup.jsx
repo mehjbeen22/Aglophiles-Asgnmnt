@@ -33,11 +33,12 @@ const Signup = () => {
       });
       console.log(response);
       toast.success('Account Created Successfully!');
+   
       navigate('/login'); // Redirecting to login after successful signup
     } catch (error) {
       console.log(error);
       if (error.response && error.response.data) {
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.error);
       } else {
         toast.error('An error occurred. Please try again.');
       }

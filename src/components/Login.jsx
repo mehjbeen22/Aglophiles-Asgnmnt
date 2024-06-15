@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -20,10 +21,19 @@ const Login = () => {
         ...loginData,
       });
       console.log(response);
-      navigate('/movies'); // Redirecting to movies catalog after successful login
+      navigate('/movies');
+      // localStorage.setItem('login', 'true');
+      // if (localStorage.getItem('login')) {
+      //   navigate('/movies'); // Redirecting to movies catalog after successful login
+      // }
     } catch (error) {
       console.log(error);
-      alert('Login failed. Please check your credentials.');
+
+      if (error.message === 'Network Error') {
+        toast.error('server is low');
+      } else {
+        toast.error('Login failed. Please check your credentials.');
+      }
     }
   };
 
@@ -38,6 +48,7 @@ const Login = () => {
 
   return (
     <main className="bg-gray-100 flex justify-center items-center h-screen">
+      <ToastContainer />
       <form
         onSubmit={LoginHandler}
         className="bg-white flex flex-col gap-3 w-[35%] p-4 shadow-2xl"
